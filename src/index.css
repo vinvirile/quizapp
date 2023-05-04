@@ -1,4 +1,13 @@
-@font-face {font-family: "TanseekModernProArabic-Book"; src: url("//db.onlinewebfonts.com/t/d602bf6498a65d9595ca30c04eadda32.eot"); src: url("//db.onlinewebfonts.com/t/d602bf6498a65d9595ca30c04eadda32.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/d602bf6498a65d9595ca30c04eadda32.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/d602bf6498a65d9595ca30c04eadda32.woff") format("woff"), url("//db.onlinewebfonts.com/t/d602bf6498a65d9595ca30c04eadda32.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/d602bf6498a65d9595ca30c04eadda32.svg#TanseekModernProArabic-Book") format("svg"); }
+@font-face {
+  font-family: 'TanseekModernProArabic-Book';
+  src: url('assets/fonts/d602bf6498a65d9595ca30c04eadda32.eot')
+      format('embedded-opentype'),
+    url('assets/fonts/d602bf6498a65d9595ca30c04eadda32.woff2') format('woff2'),
+    url('assets/fonts/d602bf6498a65d9595ca30c04eadda32.woff') format('woff'),
+    url('assets/fonts//d602bf6498a65d9595ca30c04eadda32.ttf') format('truetype'),
+    url('assets/fonts/d602bf6498a65d9595ca30c04eadda32.svg#TanseekModernProArabic-Book')
+      format('svg');
+}
 
 * {
   box-sizing: border-box;
@@ -11,5 +20,5 @@ html {
 body {
   font-size: 1.6rem;
   background-color: #fed860;
-  font-family: "TanseekModernProArabic-Book", sans-serif;
+  font-family: 'TanseekModernProArabic-Book', sans-serif;
 }
