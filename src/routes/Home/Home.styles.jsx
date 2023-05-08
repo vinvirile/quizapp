@@ -31,3 +31,17 @@ export const ButtonsContainer = styled.div`
   justify-content: space-between;
   margin-top: 2.4rem;
 `
+export const CountContainer = styled.div`
+  display: flex;
+  font-weight: bold;
+  margin-top: 2.4rem;
+  .current-question-number {
+    font-size: 3.2rem;
+  }
+  .divider {
+    font-size: 2.2rem;
+  }
+  .total-question-number {
+    font-size: 1.8rem;
+  }
+`
