@@ -6,24 +6,25 @@ import {
   ChoiceText,
 } from './AnswerChoices.styles'
 
-const AnswerChoices = ({ val }) => {
+const AnswerChoices = ({ val, arrIdx, session, setSession }) => {
+  console.log(session)
+
   return (
-    // <ChoicesContainer>
-    //   <ChoiceContainer>
-    //     <ChoiceRadio>
-    //       <input type="radio" name="persona5quiz" value={1} />
-    //     </ChoiceRadio>
-    //     <ChoiceAnswer>
-    //       <ChoiceText>Sakura</ChoiceText>
-    //     </ChoiceAnswer>
-    //   </ChoiceContainer>
-    // </ChoicesContainer>
     <ChoicesContainer>
       {val &&
         val.map((choice, idx) => (
           <ChoiceContainer key={idx}>
             <ChoiceRadio>
-              <input type="radio" name="persona5quiz" value={choice} />
+              <input
+                onClick={() => {
+                  // session[arrIdx] = choice
+                  setSession({ ...session, [arrIdx]: choice })
+                }}
+                type="radio"
+                name={`${arrIdx}`}
+                value={choice}
+                checked={choice === session[arrIdx] ? true : false}
+              />
             </ChoiceRadio>
             <ChoiceAnswer>
               <ChoiceText>{choice}</ChoiceText>
