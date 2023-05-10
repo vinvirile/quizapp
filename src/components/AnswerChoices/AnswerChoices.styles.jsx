@@ -12,10 +12,6 @@ export const ChoiceContainer = styled.label`
   display: flex;
   height: 4.8rem;
   align-items: center;
-  &:hover {
-    background-color: #d5d9e4;
-    border-radius: 2rem;
-  }
   cursor: pointer;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -24,6 +20,48 @@ export const ChoiceContainer = styled.label`
 
 export const ChoiceRadio = styled.div``
 export const ChoiceAnswer = styled.div`
-  margin-left: 1.2rem;
+  ${(props) =>
+    props.selected === true &&
+    `
+      display: inline-block;
+      position: relative;
+      &:before {
+      content: ' ';
+      display: block;
+      height: 90%;
+      width: 100%;
+      margin-left: -3px;
+      margin-right: -3px;
+      position: absolute;
+      background-color: #ff5160 !important;
+      transform: rotate(2deg);
+      top: -1px;
+      left: -1px;
+      border-radius: 20% 25% 20% 24%;
+      padding: 10px 3px 3px 10px;
+  }
+    `}
+
+  &:hover {
+    display: inline-block;
+    position: relative;
+    &:before {
+      content: ' ';
+      display: block;
+      height: 90%;
+      width: 100%;
+      margin-left: -3px;
+      margin-right: -3px;
+      position: absolute;
+      background-color: #eee;
+      transform: rotate(2deg);
+      top: -1px;
+      left: -1px;
+      border-radius: 20% 25% 20% 24%;
+      padding: 10px 4px 4px 10px;
+    }
+  }
 `
-export const ChoiceText = styled.span``
+export const ChoiceText = styled.span`
+  position: relative;
+`

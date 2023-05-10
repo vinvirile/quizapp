@@ -13,10 +13,42 @@ import {
   CountContainer,
 } from './Home.styles'
 
-import { quizData } from '../../persona-5-quiz'
+import { quizData } from '../../react-js-quiz'
 
-const gradeQuiz = () => {
-  return alert(null)
+const hasUnansweredQuestions = (obj) => {
+  for (let key in obj) {
+    if (obj[key] === null) {
+      return true
+    }
+  }
+  return false
+}
+
+const gradeQuiz = (session, state) => {
+  if (hasUnansweredQuestions(session) === true)
+    return alert('All Questions must be answered!')
+
+  let incorrectCount = 0
+  for (let answerIdx in session) {
+    console.log(answerIdx)
+
+    console.log('Correct Answer:' + quizData[answerIdx].answer)
+    console.log('Your Answer:' + session[answerIdx])
+
+    if (quizData[answerIdx].answer !== session[answerIdx]) {
+      incorrectCount++
+    }
+  }
+
+  console.log(incorrectCount)
+
+  const gradeMath = Math.floor(
+    ((quizData.length - incorrectCount) / quizData.length) * 100
+  )
+  console.log(`Ratio: ${quizData.length - incorrectCount}/${quizData.length}`)
+  console.log(`Grade: ${gradeMath}%`)
+  alert(`Ratio: ${quizData.length - incorrectCount}/${quizData.length}`)
+  alert(`Grade: ${gradeMath}%`)
 }
 
 const QUIZ_ACTIONS = {
@@ -28,9 +60,7 @@ const quizReducer = (state, action) => {
   const { type, payload } = action
 
   let currentInt = state.getArrayInt()
-  console.log(currentInt)
 
-  /*Fix this*/
   switch (type) {
     case QUIZ_ACTIONS.NEXT_QUESTION:
       return {
@@ -45,12 +75,6 @@ const quizReducer = (state, action) => {
         current: state.current - 1,
         question: quizData[currentInt - 1].question,
         multichoice: quizData[currentInt - 1].multichoice,
-      }
-    case QUIZ_ACTIONS.UPDATE_SESSION:
-      console.log('update session booped')
-      return {
-        ...state,
-        // ...payload,
       }
   }
 }
@@ -68,16 +92,6 @@ const INITIAL_STATE = {
   },
   question: quizData[0].question,
   multichoice: quizData[0].multichoice,
-  /* 
-    Array Format Example:
-    {
-      0: 'answer',
-      1: 'answer',
-      2: 'answer',
-      ...ect
-    }
-
-  */
 }
 
 const Home = () => {
@@ -114,7 +128,11 @@ const Home = () => {
         </Button>
 
         {state.current === quizData.length ? (
-          <Button onClick={gradeQuiz} buttonType="primary" size="long">
+          <Button
+            onClick={() => gradeQuiz(session, state)}
+            buttonType="primary"
+            size="long"
+          >
             Finish
           </Button>
         ) : (

@@ -16,8 +16,7 @@ const AnswerChoices = ({ val, arrIdx, session, setSession }) => {
           <ChoiceContainer key={idx}>
             <ChoiceRadio>
               <input
-                onClick={() => {
-                  // session[arrIdx] = choice
+                onChange={() => {
                   setSession({ ...session, [arrIdx]: choice })
                 }}
                 type="radio"
@@ -26,8 +25,10 @@ const AnswerChoices = ({ val, arrIdx, session, setSession }) => {
                 checked={choice === session[arrIdx] ? true : false}
               />
             </ChoiceRadio>
-            <ChoiceAnswer>
-              <ChoiceText>{choice}</ChoiceText>
+            <ChoiceAnswer selected={choice === session[arrIdx] ? true : false}>
+              <ChoiceText selected={choice === session[arrIdx] ? true : false}>
+                {choice}
+              </ChoiceText>
             </ChoiceAnswer>
           </ChoiceContainer>
         ))}

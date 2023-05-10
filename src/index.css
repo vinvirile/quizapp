@@ -22,3 +22,7 @@ body {
   background-color: #fed860;
   font-family: 'TanseekModernProArabic-Book', sans-serif;
 }
+
+input[type='radio'] {
+  appearance: none;
+}

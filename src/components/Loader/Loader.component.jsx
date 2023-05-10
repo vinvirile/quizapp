@@ -14,6 +14,7 @@ const LoaderProgress = styled.div`
   height: 0.6rem;
   overflow-y: none;
   border-radius: 2rem;
+  transition: width 0.2s ease-in-out 0s;
 `
 
 const Loader = ({ val }) => {
