@@ -1,17 +1,10 @@
 import { useReducer, useState } from 'react'
-import Card from '../../components/Card/Card.component'
+import { useNavigate, Link } from 'react-router-dom'
 import Loader from '../../components/Loader/Loader.component'
 import Button from '../../components/Button/Button.component'
 import AnswerChoices from '../../components/AnswerChoices/AnswerChoices.component'
 
-import {
-  QuizHeader,
-  QuizHeaderName,
-  Question,
-  BackLink,
-  ButtonsContainer,
-  CountContainer,
-} from './Home.styles'
+import { Question, ButtonsContainer, CountContainer } from './Quiz.styles'
 
 import { quizData } from '../../react-js-quiz'
 
@@ -24,24 +17,19 @@ const hasUnansweredQuestions = (obj) => {
   return false
 }
 
-const gradeQuiz = (session, state) => {
+const gradeQuiz = (session, state, gradeQuizHandler) => {
   if (hasUnansweredQuestions(session) === true)
     return alert('All Questions must be answered!')
-
   let incorrectCount = 0
   for (let answerIdx in session) {
     console.log(answerIdx)
-
     console.log('Correct Answer:' + quizData[answerIdx].answer)
     console.log('Your Answer:' + session[answerIdx])
-
     if (quizData[answerIdx].answer !== session[answerIdx]) {
       incorrectCount++
     }
   }
-
   console.log(incorrectCount)
-
   const gradeMath = Math.floor(
     ((quizData.length - incorrectCount) / quizData.length) * 100
   )
@@ -49,6 +37,10 @@ const gradeQuiz = (session, state) => {
   console.log(`Grade: ${gradeMath}%`)
   alert(`Ratio: ${quizData.length - incorrectCount}/${quizData.length}`)
   alert(`Grade: ${gradeMath}%`)
+  gradeQuizHandler({
+    quizData,
+    session,
+  })
 }
 
 const QUIZ_ACTIONS = {
@@ -94,16 +86,12 @@ const INITIAL_STATE = {
   multichoice: quizData[0].multichoice,
 }
 
-const Home = () => {
+const Quiz = ({ gradeQuizHandler }) => {
   const [state, dispatch] = useReducer(quizReducer, INITIAL_STATE)
   const [session, setSession] = useState(quizInitialSession)
 
   return (
-    <Card floatDown={true}>
-      <QuizHeader>
-        <QuizHeaderName>Quiz</QuizHeaderName>
-        <BackLink to="">Back &gt;</BackLink>
-      </QuizHeader>
+    <>
       <CountContainer>
         <span className="current-question-number">{state.current}</span>
         <span className="divider">\</span>
@@ -128,13 +116,19 @@ const Home = () => {
         </Button>
 
         {state.current === quizData.length ? (
-          <Button
-            onClick={() => gradeQuiz(session, state)}
-            buttonType="primary"
-            size="long"
-          >
-            Finish
-          </Button>
+          <>
+            <Link to="results">
+              <Button
+                onClick={() => {
+                  gradeQuiz(session, state, gradeQuizHandler)
+                }}
+                buttonType="primary"
+                size="long"
+              >
+                Finish
+              </Button>
+            </Link>
+          </>
         ) : (
           <Button
             onClick={() => {
@@ -148,8 +142,8 @@ const Home = () => {
           </Button>
         )}
       </ButtonsContainer>
-    </Card>
+    </>
   )
 }
 
-export default Home
+export default Quiz
