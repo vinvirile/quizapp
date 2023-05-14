@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react'
+import { useReducer, useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import Loader from '../../components/Loader/Loader.component'
 import Button from '../../components/Button/Button.component'
@@ -17,7 +17,7 @@ const hasUnansweredQuestions = (obj) => {
   return false
 }
 
-const gradeQuiz = (session, state, gradeQuizHandler) => {
+const gradeQuiz = (session, setIsUserReady, gradeQuizHandler) => {
   if (hasUnansweredQuestions(session) === true)
     return alert('All Questions must be answered!')
   let incorrectCount = 0
@@ -41,6 +41,7 @@ const gradeQuiz = (session, state, gradeQuizHandler) => {
     quizData,
     session,
   })
+  setIsUserReady(true)
 }
 
 const QUIZ_ACTIONS = {
@@ -87,8 +88,14 @@ const INITIAL_STATE = {
 }
 
 const Quiz = ({ gradeQuizHandler }) => {
+  const navigate = useNavigate()
   const [state, dispatch] = useReducer(quizReducer, INITIAL_STATE)
   const [session, setSession] = useState(quizInitialSession)
+  const [isUserReady, setIsUserReady] = useState(false)
+
+  useEffect(() => {
+    if (isUserReady) return navigate('results')
+  }, [isUserReady])
 
   return (
     <>
@@ -117,17 +124,17 @@ const Quiz = ({ gradeQuizHandler }) => {
 
         {state.current === quizData.length ? (
           <>
-            <Link to="results">
-              <Button
-                onClick={() => {
-                  gradeQuiz(session, state, gradeQuizHandler)
-                }}
-                buttonType="primary"
-                size="long"
-              >
-                Finish
-              </Button>
-            </Link>
+            {/* <Link to="results"> */}
+            <Button
+              onClick={() => {
+                gradeQuiz(session, setIsUserReady, gradeQuizHandler)
+              }}
+              buttonType="primary"
+              size="long"
+            >
+              Finish
+            </Button>
+            {/* </Link> */}
           </>
         ) : (
           <Button
