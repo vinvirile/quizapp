@@ -6,6 +6,11 @@ const LoaderContainer = styled.div`
   margin-top: 0;
   background-color: #f3f5f7;
   border-radius: 2rem;
+  ${(props) =>
+    props.graded &&
+    `
+    background-color: #000;
+  `}
 `
 
 const LoaderProgress = styled.div`
@@ -17,12 +22,12 @@ const LoaderProgress = styled.div`
   transition: width 0.2s ease-in-out 0s;
 `
 
-const Loader = ({ val }) => {
+const Loader = ({ val, gradingStatus }) => {
   const currentProgress = (val[0] / val[1]) * 100
-  console.log('Current Progress: ' + currentProgress + '%')
+  // console.log('Current Progress: ' + currentProgress + '%')
 
   return (
-    <LoaderContainer>
+    <LoaderContainer graded={gradingStatus || false}>
       <LoaderProgress progress={currentProgress} />
     </LoaderContainer>
   )

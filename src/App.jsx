@@ -12,13 +12,16 @@ const App = () => {
       session: []
     }
   */
-  const [results, setResults] = useState({})
+  const [quizStatistics, setQuizStatistics] = useState([{}, {}])
 
   return (
     <Routes>
       <Route path="/" element={<QuizHeading />}>
-        <Route index element={<Quiz gradeQuizHandler={setResults} />} />
-        <Route path="results" element={<Result results={results} />} />
+        <Route index element={<Quiz gradeQuizHandler={setQuizStatistics} />} />
+        <Route
+          path="results"
+          element={<Result quizStatistics={quizStatistics} />}
+        />
       </Route>
     </Routes>
   )

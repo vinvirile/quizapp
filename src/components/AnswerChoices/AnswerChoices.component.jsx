@@ -6,14 +6,17 @@ import {
   ChoiceText,
 } from './AnswerChoices.styles'
 
-const AnswerChoices = ({ val, arrIdx, session, setSession }) => {
-  console.log(session)
+const AnswerChoices = ({ val, arrIdx, session, setSession, gradingStatus }) => {
+  // console.log(session)
 
   return (
     <ChoicesContainer>
       {val &&
         val.map((choice, idx) => (
-          <ChoiceContainer key={idx}>
+          <ChoiceContainer
+            style={gradingStatus && { cursor: 'default' }}
+            key={idx}
+          >
             <ChoiceRadio>
               <input
                 onChange={() => {

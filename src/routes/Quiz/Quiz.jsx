@@ -6,7 +6,7 @@ import AnswerChoices from '../../components/AnswerChoices/AnswerChoices.componen
 
 import { Question, ButtonsContainer, CountContainer } from './Quiz.styles'
 
-import { quizData } from '../../react-js-quiz'
+import { quizData } from '../../kingdom-hearts-quiz'
 
 const hasUnansweredQuestions = (obj) => {
   for (let key in obj) {
@@ -22,25 +22,27 @@ const gradeQuiz = (session, setIsUserReady, gradeQuizHandler) => {
     return alert('All Questions must be answered!')
   let incorrectCount = 0
   for (let answerIdx in session) {
-    console.log(answerIdx)
-    console.log('Correct Answer:' + quizData[answerIdx].answer)
-    console.log('Your Answer:' + session[answerIdx])
+    // console.log(answerIdx)
+    // console.log('Correct Answer:' + quizData[answerIdx].answer)
+    // console.log('Your Answer:' + session[answerIdx])
     if (quizData[answerIdx].answer !== session[answerIdx]) {
       incorrectCount++
     }
   }
-  console.log(incorrectCount)
+  // console.log(incorrectCount)
   const gradeMath = Math.floor(
     ((quizData.length - incorrectCount) / quizData.length) * 100
   )
-  console.log(`Ratio: ${quizData.length - incorrectCount}/${quizData.length}`)
-  console.log(`Grade: ${gradeMath}%`)
-  alert(`Ratio: ${quizData.length - incorrectCount}/${quizData.length}`)
-  alert(`Grade: ${gradeMath}%`)
-  gradeQuizHandler({
-    quizData,
-    session,
-  })
+  // console.log(`Ratio: ${quizData.length - incorrectCount}/${quizData.length}`)
+  // console.log(`Grade: ${gradeMath}%`)
+
+  const QUIZ_GRADE = {
+    correctCount: quizData.length - incorrectCount,
+    incorrectCount,
+    percentile: gradeMath,
+  }
+
+  gradeQuizHandler([quizData, session, QUIZ_GRADE])
   setIsUserReady(true)
 }
 
